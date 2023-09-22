@@ -51,10 +51,11 @@ variable "skip_final_snapshot" {
 variable "security_group" {
     type = string
     description = "security group"
-    default =
+
 }
 variable "subnet_group_name" {
-    type = 
+    type = string
     description = "final snapshot"
-    default = 
+  
 }
+
