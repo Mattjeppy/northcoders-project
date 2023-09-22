@@ -1,49 +1,13 @@
-data "http" "myip" {
-  url = "https://ifconfig.me/ip"
-}
-
-resource "aws_security_group" "allow_https" {
-  name        = "allow_https"
-  description = "Allow HTTPS inbound traffic"
-  vpc_id      = var.vpc_id
-
-  ingress {
-    description = "HTTPS from VPC"
-    from_port   = 443
-    to_port     = 443
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  egress {
-    from_port   = 443
-    to_port     = 443
-    protocol    = "6"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  tags = {
-    Name = "allow_https"
-  }
-}
-
 resource "aws_security_group" "allow_http" {
-  name        = "allow_http"
+  name        = "Allow database access"
   description = "Allow HTTP inbound traffic"
   vpc_id      = var.vpc_id
 
   ingress {
-    description = "HTTP from VPC"
-    from_port   = 80
-    to_port     = 80
+    description = "inbound database traffic"
+    from_port   = 5432
+    to_port     = 5432
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  egress {
-    from_port   = 80
-    to_port     = 80
-    protocol    = "6"
     cidr_blocks = ["0.0.0.0/0"]
   }
 
@@ -53,7 +17,7 @@ resource "aws_security_group" "allow_http" {
 }
 
 resource "aws_security_group" "allow_ssh" {
-  name        = "allow_ssh"
+  name        = "allow_ssh_to_database"
   description = "Allow SSH inbound traffic"
   vpc_id      = var.vpc_id
 
