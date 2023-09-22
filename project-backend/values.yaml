@@ -1,0 +1,18 @@
+# Deployment values
+deployment:
+  name: project-backend
+  replicas: 1
+  label: project-backend
+
+# Container values
+container:
+  name: project-backend
+  # image: nginx
+  # tag: 1.25.0-alpine
+  # port: 80
+
+# Service values
+service:
+  name: project-backend
+  # port: 3000
+  type: LoadBalancer
