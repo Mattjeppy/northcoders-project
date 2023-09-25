@@ -1,9 +1,11 @@
 variable "frontend_repository" {
   type        = string
-  description = "project-frontend" 
+  description = "project-frontend"
+  
 }
 
 variable "backend_repository" {
   type        = string
-  description = "project-frontend"
+  description = "project-backend"
+
 }

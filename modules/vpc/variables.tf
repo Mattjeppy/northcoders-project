@@ -7,3 +7,9 @@ variable "cluster_name" {
   description = "The name of the EKS cluster - used for identifying network aspects with tags"
   type        = string
 }
+
+variable "project_name" {
+
+  type = string
+  
+}

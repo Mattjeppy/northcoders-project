@@ -16,20 +16,35 @@ variable "region" {
   default     = "eu-west-2"
 }
 
-variable "desired_size" {
 
-  type = number
-  default = 3
+
+variable "project_name" {
+  default = "lovegames"
+  
 }
+
+
+variable "postgres_database" {
+  default = "testdb"
+}
+
+variable "postgres_username" {
+  default = "postgres"
+}
+
+variable "postgres_password" {
+  default = "mysecretpassword"
+}
+
 
 variable "frontend_repository" {
   type        = string
   description = "project-frontend"
-  default = "project-frontend"
+  default = "lovegames-project-frontend"
 }
 
 variable "backend_repository" {
   type        = string
   description = "project-backend"
-  default = "project-backend"
+  default = "lovegames-project-backend"
 }
