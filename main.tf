@@ -5,38 +5,27 @@ module "networking" {
 
     vpc_name        = var.vpc_name
     cluster_name    = var.cluster_name
+    project_name = var.project_name
+
 }
 
-# Provision cluster
-module "eks_cluster" {
-    source          = "./modules/eks"
-    desired_size    = var.desired_size
-    vpc_id          = module.networking.vpc_id
-    private_subnets = module.networking.private_subnets
-    cluster_name    = var.cluster_name
-}
-
-# provision ECR 
+# Provision repository 
 module "ecr" {
- source          = "./modules/ecr"
- frontend_repository = var.frontend_repository
- backend_repository = var.backend_repository
+    source          = "./modules/ecr"
+    frontend_repository = var.frontend_repository
+    backend_repository = var.backend_repository
 }
-# Desired Size Hack
-resource "null_resource" "update_desired_size" {
-  triggers = {
-    desired_size = var.desired_size
-  }
 
-  provisioner "local-exec" {
-    interpreter = ["/bin/bash", "-c"]
-
-    # Note: this requires the awscli to be installed locally where Terraform is executed
-    command = <<-EOT
-      aws eks update-nodegroup-config \
-        --cluster-name ${module.eks_cluster.cluster_name} \
-        --nodegroup-name ${element(split(":", module.eks_cluster.node_group_id), 1)} \
-        --scaling-config desiredSize=${var.desired_size}
-    EOT
-  }
+# Provision database
+module "rds" {
+source = "./modules/rds"
+project_name = var.project_name
+region = var.region
+postgres_database = var.postgres_database
+postgres_username = var.postgres_username
+postgres_password = var.postgres_password
+vpc_security_group_ids = module.networking.vpc_security_group_ids
+private_subnets = module.networking.private_subnets
 }
+
+ 

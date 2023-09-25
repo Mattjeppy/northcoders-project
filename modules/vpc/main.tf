@@ -25,4 +25,29 @@ module "vpc" {
     "kubernetes.io/cluster/${var.cluster_name}" = "shared"
     "kubernetes.io/role/internal-elb"             = 1
   }
+  
+}
+
+resource "aws_default_security_group" "vpc_security_group" {
+  vpc_id = module.vpc.vpc_id
+
+  # allow all inbound traffic 
+  ingress {
+    protocol  = -1
+    from_port = 0
+    to_port   = 0
+    self      = true
+  }
+
+  # allow all outbound traffic
+  egress {
+    protocol    = -1
+    from_port   = 0
+    to_port     = 0
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "${var.project_name}-vpc-default-sg"
+  }
 }
