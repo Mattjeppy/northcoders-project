@@ -4,20 +4,12 @@ variable "cluster_name" {
   default     = "ce-cluster"
 }
 
-# variable "vpc_id" {
-#   description = "The ID of the VPC to place the cluster id"
-#   type        = string
-# }
 
-# variable "private_subnets" {
-#   description = "Private Subnet IDs for the cluster"
-#   type        = list(string)
-# }
 
 variable "desired_size" {
 
   type = number
-  default = 10
+  default = 5
 }
 
 variable "project_name" {

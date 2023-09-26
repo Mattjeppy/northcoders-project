@@ -20,11 +20,11 @@ module "eks" {
     one = {
     name = "node-group-1"
 
-    instance_types = ["t2.micro"]
+    instance_types = ["t3.small"]
       
     desired_size = var.desired_size
-    max_size     = 10
-    min_size     = 10
+    max_size     = 5
+    min_size     = 5
       
       
     }
@@ -73,28 +73,27 @@ resource "null_resource" "update_desired_size" {
   }
 }
 
-resource "null_resource" "install_jenkins" {
-  depends_on = [module.eks.eks]
-  triggers = {
-    eks_cluster_id = module.eks.cluster_id
-  }
+# resource "null_resource" "install_jenkins" {
+#   depends_on = [module.eks.eks_managed_node_group]
+#   triggers = {
+#     eks_cluster_id = module.eks.cluster_id
+#   }
 
-  provisioner "local-exec" {
+#   provisioner "local-exec" {
     
-    command = <<-EOT
-       aws eks update-kubeconfig --name ce-cluster && \
-        helm repo add jenkins https://charts.jenkins.io && \
-        helm repo update && \
-        helm install jenkins jenkins/jenkins \
-        --namespace jenkins \
-        --create-namespace \
-        --set jenkinsAdminUser=admin \
-        --set jenkinsAdminPassword=mysecretpassword
-    EOT
+#     command = <<-EOT
+#        aws eks update-kubeconfig --name ce-cluster && \
+#         sudo apt-get update -y
+#         sudo apt-get install -y openjdk-11-jre
+#         wget -q -O - https://pkg.jenkins.io/debian/jenkins.io.key | sudo apt-key add -
+#         sudo sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
+#         sudo apt-get update -y
+#         sudo apt-get install -y jenkins
+#     EOT
 
-    interpreter = ["/bin/bash", "-c"]
-  }
-}
+#     interpreter = ["/bin/bash", "-c"]
+#   }
+# }
 
   
 

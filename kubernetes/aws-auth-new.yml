@@ -1,0 +1,30 @@
+apiVersion: v1
+data:
+  mapRoles: |
+    - groups:
+      - system:bootstrappers
+      - system:nodes
+      rolearn: arn:aws:iam::494108812211:role/node-group-1-eks-node-group-20230925110348804200000003
+      username: system:node:{{EC2PrivateDNSName}}
+    - groups:
+      - system:masters
+      rolearn: arn:aws:iam::494108812211:user/MahmudNagasa
+      username: Mahmud
+    - groups:
+      - system:masters
+      rolearn: arn:aws:iam::494108812211:user/MattEppy
+      username: OldGreg
+    - groups:
+      - system:masters
+      rolearn: arn:aws:iam::494108812211:user/JamesSouthworth
+      username: Jimbo
+kind: ConfigMap
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","data":{"mapRoles":"- groups:\n  - system:bootstrappers\n  - system:nodes\n  rolearn: arn:aws:iam::494108812211:role/node-group-1-eks-node-group-20230922093522236500000001\n  username: system:node:{{EC2PrivateDNSName}}\n- groups:\n  - system:masters\n  rolearn: arn:aws:iam::494108812211:user/MahmudNagasa\n  username: Mahmud\n- groups:\n  - system:masters\n  rolearn: arn:aws:iam::494108812211:user/MattEppy\n  username: Eppy\n- groups:\n  - system:masters\n  rolearn: arn:aws:iam::494108812211:user/JamesSouthworth\n  username: Jimbo\n"},"kind":"ConfigMap","metadata":{"annotations":{},"creationTimestamp":"2023-09-22T09:43:46Z","name":"aws-auth","namespace":"kube-system","resourceVersion":"42018","uid":"33fa2fe0-37af-4e23-8434-fe39b60bfd13"}}
+  creationTimestamp: "2023-09-22T09:43:46Z"
+  name: aws-auth
+  namespace: kube-system
+  resourceVersion: "45813"
+  uid: 33fa2fe0-37af-4e23-8434-fe39b60bfd13
