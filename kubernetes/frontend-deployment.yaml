@@ -1,11 +1,11 @@
 apiVersion: apps/v1
 kind: Deployment
-metadata: 
+metadata:
   name: love-games-frontend
 spec:
   replicas: 1
   selector:
-    matchLabels: 
+    matchLabels:
       app: love-games-frontend
   template:
     metadata:
@@ -13,9 +13,9 @@ spec:
         app: love-games-frontend
     spec:
       containers:
-      - name: love-games-frontend
-        image: 494108812211.dkr.ecr.eu-west-2.amazonaws.com/lovegames-project-frontend:1.0
-        ports: 
-        - containerPort: 80
+        - name: love-games-frontend
+          image: 494108812211.dkr.ecr.eu-west-2.amazonaws.com/lovegames-project-frontend:1.1
+          ports:
+            - containerPort: 80
       imagePullSecrets:
         - name: testecr
